@@ -122,9 +122,9 @@ global::global (int argc, char *argv[]) {
   proxyAddr = NULL;
   domains = NULL;
   // FIFOs
-  URLsDisk = new PersistentFifo(reload, fifoFile);
-  URLsDiskWait = new PersistentFifo(reload, fifoFileWait);
-  URLsPriority = new SyncFifo<url>;
+  URLsDisk = new PersistentFifo(reload, fifoFile);  //持久化到磁盘
+  URLsDiskWait = new PersistentFifo(reload, fifoFileWait);  //持久化到磁盘
+  URLsPriority = new SyncFifo<url>;  //存在内存中
   URLsPriorityWait = new SyncFifo<url>;
   inter = new Interval(ramUrls);
   namedSiteList = new NamedSite[namedSiteListSize];
@@ -176,7 +176,7 @@ global::global (int argc, char *argv[]) {
 	freeConns->put(connexions+i);
   }
   // init poll structures
-  sizePoll = nb_conn + maxInput;
+  sizePoll = nb_conn + maxInput; //socket ＋ 输入监听描述符
   pollfds = new struct pollfd[sizePoll];
   posPoll = 0;
   maxFds = sizePoll;

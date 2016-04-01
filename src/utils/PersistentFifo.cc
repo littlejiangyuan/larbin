@@ -24,7 +24,7 @@ PersistentFifo::PersistentFifo (bool reload, char *baseName) {
   bufPos = 0;
   bufEnd = 0;
   mypthread_mutex_init (&lock, NULL);
-  if (reload) {
+  if (reload) {  //接着上次抓取
 	DIR *dir = opendir(".");
 	struct dirent *name;
 

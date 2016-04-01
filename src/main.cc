@@ -69,7 +69,7 @@ int main (int argc, char *argv[]) {
 #ifndef NOWEBSERVER
   // launch the webserver if needeed
   if (global::httpPort != 0)
-    startThread(startWebserver, NULL);
+    startThread(startWebserver, NULL);  //开启webserver监听线程
 #endif // NOWEBSERVER
 
   // Start the search
@@ -80,7 +80,7 @@ int main (int argc, char *argv[]) {
     // update time
     global::now = time(NULL);
     if (old != global::now) {
-      // this block is called every second
+      // this block is called every second 每秒都要进来执行
       old = global::now;
       cron();
     }
@@ -90,7 +90,7 @@ int main (int argc, char *argv[]) {
     for (int i=0; i<global::maxFds; i++)
       global::ansPoll[i] = 0;
     for (uint i=0; i<global::posPoll; i++)
-      global::ansPoll[global::pollfds[i].fd] = global::pollfds[i].revents;
+      global::ansPoll[global::pollfds[i].fd] = global::pollfds[i].revents;  //有事件发生的描述符
     global::posPoll = 0;
     stateMain(2);
     input();
@@ -118,7 +118,7 @@ static void cron () {
 #ifdef EXIT_AT_END
   if (global::URLsDisk->getLength() == 0
       && global::URLsDiskWait->getLength() == 0
-      && debUrl == 0)
+      && debUrl == 0)   //debUrl表示内存中的url数量
     exit(0);
 #endif // EXIT_AT_END
 

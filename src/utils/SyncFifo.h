@@ -12,7 +12,7 @@
 #include "utils/mypthread.h"
 
 template <class T>
-class SyncFifo {
+class SyncFifo {   //循环链表
  protected:
   uint in, out;
   uint size;

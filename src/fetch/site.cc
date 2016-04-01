@@ -473,7 +473,7 @@ int IPSite::fetch () {
     return 0;
   } else {
     int next_call = lastAccess + global::waitDuration;
-    if (next_call > global::now) {
+    if (next_call > global::now) {  //还没有到时间
       global::okSites->rePut(this);
       return next_call;
     } else {
