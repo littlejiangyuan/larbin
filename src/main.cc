@@ -88,10 +88,10 @@ int main (int argc, char *argv[]) {
     waitBandwidth(&old);
     stateMain(1);
     for (int i=0; i<global::maxFds; i++)
-      global::ansPoll[i] = 0;
+      global::ansPoll[i] = 0;//有事件发生的描述符重置
     for (uint i=0; i<global::posPoll; i++)
       global::ansPoll[global::pollfds[i].fd] = global::pollfds[i].revents;  //有事件发生的描述符
-    global::posPoll = 0;
+    global::posPoll = 0; //初始posPoll, 以便重新设置pollfds
     stateMain(2);
     input();
     stateMain(3);
@@ -101,10 +101,10 @@ int main (int argc, char *argv[]) {
     stateMain(5);
     fetchOpen();
     stateMain(6);
-    checkAll();
+    checkAll();  //主要工作都在这儿 重新添加到pollfds
     // select
     stateMain(count++);
-    poll(global::pollfds, global::posPoll, 10);
+    poll(global::pollfds, global::posPoll, 10);   //第二个参数表示监听描述符的数目
     stateMain(7);
   }
 }

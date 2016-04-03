@@ -57,7 +57,7 @@ int input () {
     fdc = accept(inputFds, (struct sockaddr *) &addr, &len);
     if (fdc != -1) {
       global::verifMax(fdc);
-      fcntl(fdc, F_SETFL, O_NONBLOCK);
+      fcntl(fdc, F_SETFL, O_NONBLOCK);//设置为非阻塞
       inputConns[nbInput]->fds = fdc;
       inputConns[nbInput]->pos = 0;
       inputConns[nbInput]->end_pos = 0;

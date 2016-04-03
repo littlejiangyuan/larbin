@@ -82,7 +82,7 @@ void checkAll () {
     switch ((global::connexions+i)->state) {
     case connectingC:
     case writeC:
-      global::setPoll(n, POLLOUT);
+      global::setPoll(n, POLLOUT);  //重新设置pollfds
       break;
     case openC:
       global::setPoll(n, POLLIN);
@@ -214,7 +214,7 @@ static void endOfFile (Connexion *conn) {
 	conn->recycle();
 	global::freeConns->put(conn);
   } else {
-    // that was an html page
+    // that was an html page  处理解析html
     manageHtml();
   }
 }

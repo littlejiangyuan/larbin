@@ -125,7 +125,7 @@ global::global (int argc, char *argv[]) {
   URLsDisk = new PersistentFifo(reload, fifoFile);  //持久化到磁盘
   URLsDiskWait = new PersistentFifo(reload, fifoFileWait);  //持久化到磁盘
   URLsPriority = new SyncFifo<url>;  //存在内存中
-  URLsPriorityWait = new SyncFifo<url>;
+  URLsPriorityWait = new SyncFifo<url>;//存在内存中
   inter = new Interval(ramUrls);
   namedSiteList = new NamedSite[namedSiteListSize];
   IPSiteList = new IPSite[IPSiteListSize];
@@ -190,7 +190,7 @@ global::global (int argc, char *argv[]) {
   initInput();
   initOutput();
   initSite();
-  // let's ignore SIGPIPE
+  // let's ignore SIGPIPE  关于sigpipe 连接建立，若某一端关闭连接，而另一端仍然向它写数据，第一次写数据后会收到RST响应，此后再写数据，内核将向进程发出SIGPIPE信号，通知进程此连接已经断开。而SIGPIPE信号的默认处理是终止程序，导致上述问题的发生。
   static struct sigaction sn, so;
   sigemptyset(&sn.sa_mask);
   sn.sa_flags = SA_RESTART;
