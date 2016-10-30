@@ -40,10 +40,10 @@ hashDup *global::hDuplicate;
 #endif // NO_DUP
 SyncFifo<url> *global::URLsPriority;
 SyncFifo<url> *global::URLsPriorityWait;
-uint global::readPriorityWait=0;
+uint global::readPriorityWait=0; //当前URLsPriorityWait 的记录数
 PersistentFifo *global::URLsDisk;
 PersistentFifo *global::URLsDiskWait;
-uint global::readWait=0;
+uint global::readWait=0; //当前URLsDiskWait的记录数
 IPSite *global::IPSiteList;
 NamedSite *global::namedSiteList;
 Fifo<IPSite> *global::okSites;
@@ -127,7 +127,7 @@ global::global (int argc, char *argv[]) {
   URLsPriority = new SyncFifo<url>;  //存在内存中
   URLsPriorityWait = new SyncFifo<url>;//存在内存中
   inter = new Interval(ramUrls);
-  namedSiteList = new NamedSite[namedSiteListSize];
+  namedSiteList = new NamedSite[namedSiteListSize];//dns解析过的url
   IPSiteList = new IPSite[IPSiteListSize];
   okSites = new Fifo<IPSite>(2000);
   dnsSites = new Fifo<NamedSite>(2000);

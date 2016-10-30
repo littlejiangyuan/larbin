@@ -142,7 +142,7 @@ void NamedSite::putGenericUrl(url *u, int limit, bool prio) {
   } else {
     nburls++;
     if (dnsState == waitDns
-        || strcmp(name, u->getHost())
+        || strcmp(name, u->getHost()) //如果该站点未完成DNS解析  则放进dnsSites里
         || port != u->getPort()
         || global::now > dnsTimeout) {
       // dns not done or other site
@@ -155,7 +155,7 @@ void NamedSite::putGenericUrl(url *u, int limit, bool prio) {
       }
     } else switch (dnsState) {
     case doneDns:
-      transfer(u);
+      transfer(u);//robots检测，如果通过则放在IPSiteList里，如果未通过就丢弃该url
       break;
     case errorDns:
       forgetUrl(u, noDNS);

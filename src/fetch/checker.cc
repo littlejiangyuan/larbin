@@ -27,7 +27,7 @@
  * @param u the url to check
  */
 void check (url *u) {
-  if (global::seen->testSet(u)) {
+  if (global::seen->testSet(u)) {  //没有处理过的url
 	hashUrls();  // stat
 	// where should this link go ?
 #ifdef SPECIFICSEARCH
